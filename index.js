@@ -38,6 +38,17 @@ app.get("/user/:id" ,async(req,res)=>{
     //userMongo.findById(req.params.id).then((user)=> res.json(user)).catch((err)=> console.log(err));
 });
 
+app.get("/user/:id/tasks",async(req,res)=>{
+    try{
+        const user = await userMongo.findById(req.params.id);
+        res.json(user.tasks);
+    }catch (error){
+        console.log(error), res.send("Something went wrong"+error);
+    }
+    //short
+    //userMongo.findById(req.params.id).then((user)=> res.json(user.tasks)).catch((err)=> console.log(err));
+});
+
 app.post('/user', async (req,res)=>{
     // addUser(req.body);
     console.log(req.body);  
@@ -49,14 +60,6 @@ app.post('/user', async (req,res)=>{
     } catch (error){
         console.log(error), res.send("Something went wrong"+error);
     }
-    // short
-    // const newUser = new userMongo({
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     password: req.body.password,
-    // });
-
-    // newUser.save().then((user) => res.json(user)).catch((err) => res.send(err));
 }
 );
 
