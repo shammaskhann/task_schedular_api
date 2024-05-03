@@ -75,7 +75,46 @@ app.put("/user/:id",async(req,res)=>{
     }   
 });
 
+// app.put("/user/:id/tasks",async(req,res)=>{
+//     try{ const user = await userMongo.findByIdAndUpdate(req.params.id,{
+//         tasks:req.body.tasks,
+//     }, { new: true })
+//     res.json(user);
+// }
+// catch(error){
+//         console.log(error), res.send("Something went wrong"+error);
+//     }
+// }
+// );
+// app.put("/user/:id/tasks", async (req, res) => {
+//     try {
+//         const user = await userMongo.findByIdAndUpdate(
+//             req.params.id,
+//             { $push: { tasks: { $each: req.body.tasks } } },
+//             { new: true }
+//         );
+//         res.json(user);
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send("Something went wrong: " + error);
+//     }
+// });
+app.put("/user/:id/tasks", async (req, res) => {
+    try {
+        const user = await userMongo.findByIdAndUpdate(
+            req.params.id,
+            { $push: { tasks: req.body } },
+            { new: true }
+        );
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Something went wrong: " + error);
+    }
+});
+
 app.patch("/user/:id",async(req,res)=>{
+    
     try{ const user = await userMongo.findByIdAndUpdate(req.params.id,{
         name:req.body.name,
     }, { new: true })

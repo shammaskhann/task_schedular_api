@@ -7,11 +7,11 @@ const taskSchema = new Schema({
         required: true,
     },
     starttime: {
-        type: Date,
+        type: String,
         required: true,
     },
     endtime: {
-        type: Date,
+        type: String,
         required: true,
     },
     data: {
